@@ -1,5 +1,6 @@
 import java.util.concurrent.CountDownLatch;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class CountDownLatchTest {
 	private final static int THREADS = 10;
@@ -32,8 +33,11 @@ public class CountDownLatchTest {
 	}
 
 	public static void main(String[] args) {
+		ArrayList<Thread> pool = new ArrayList<Thread>();
 		for(int i = 0; i < THREADS; ++i) {
-			new Thread(new RandomSleepRunnable(i)).start();
+			Thread temp = new Thread(new RandomSleepRunnable(i));
+			pool.add(temp);
+			temp.start();
 		}
 
 		try {
